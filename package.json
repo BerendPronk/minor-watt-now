@@ -1,0 +1,34 @@
+{
+  "name": "wattnow",
+  "version": "1.0.0",
+  "description": "A prototype to visualize energy use on festivals",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BerendPronk/minor-watt-now.git"
+  },
+  "keywords": [
+    "Watt-Now",
+    "Watt",
+    "Energy",
+    "Festilvals",
+    "D3",
+    "Visualization",
+    "NodeMCU",
+    "Sensors"
+  ],
+  "author": "Berend Pronk (berendpronk1994@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BerendPronk/minor-watt-now/issues"
+  },
+  "homepage": "https://github.com/BerendPronk/minor-watt-now#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "multer": "^1.3.0"
+  }
+}
