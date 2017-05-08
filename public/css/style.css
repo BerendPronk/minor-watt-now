@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  background-color: lightblue;
+}
+
+#map {
+  width: 100vw;
+  height: 100vh;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 400;
+  color: #fff;
+  background-color: #009;
+  box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+.tooltip p {
+  position: relative;
+  padding: .5rem 1rem;
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: bold;
+}
