@@ -2,6 +2,7 @@ const info = d3.select('body').append('div')
   .attr('class', 'tooltip')
   .style('opacity', 0);
 
+// d3.csv('http://docs.google.com/spreadsheets/d/1v8nd72_2zRZd90raZ6Z3P3tb0ycvsmjVRJ3zaxbQ80g/pubhtml?gid=0&single=true', clean, draw);
 d3.csv('public/data/generator-data.csv', clean, draw);
 
 function clean(d) {
@@ -34,8 +35,6 @@ function draw(err, data) {
 
 function showTooltip() {
   const item = this.options.d;
-
-  console.log(item.ID, item.type)
 
   info.transition()
     .duration(200)
