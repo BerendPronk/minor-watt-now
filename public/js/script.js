@@ -21,8 +21,13 @@
           );
         }
       break;
-      case 'coinbox customer':
-        console.log(`${data.id} had a new customer, total: ${data.coins}`)
+      case 'new customer':
+        console.log(`${data.id} had a new customer, total in line: ${data.queue}`);
+
+        foodTrucks[data.id].queue = data.queue;
+      break;
+      case 'empty coinbox':
+        foodTrucks[data.id].queue = 0;
       break;
       default:
         return false;
@@ -141,6 +146,6 @@
   }
 
   function showDetails() {
-    console.log(this)
+    console.log(foodTrucks[this.options.foodTruck.id]);
   }
 // })()
