@@ -31,14 +31,12 @@
   });
 
   function drawMap(data) {
-    const foodTrucks = JSON.parse(data);
+    const foodTrucks = data;
     const generatorIcon = L.icon({
       iconUrl: 'public/leaflet/images/generator-marker.jpg',
       iconSize: [48, 48],
       iconAnchor: [24, 24]
     });
-
-    console.log(foodTrucks)
 
     Object.keys(foodTrucks).forEach(function(key, index) {
       const foodTruck = foodTrucks[key];
@@ -56,6 +54,8 @@
   function showTooltip() {
     const item = this.options.d;
 
+    console.log(this)
+
     tooltip.transition()
       .duration(200)
       .style('opacity', 1)
@@ -63,7 +63,6 @@
     tooltip.html(`<p>ID: ${item.ID},<br>Type: ${item.type}</p>`)
       .style("top", (event.clientY - 28) + "px")
       .style("left", (event.clientX + 10) + "px");
-
   }
 
   function hideTooltip() {
