@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  color: #222;
   background-color: lightblue;
 }
 
@@ -8,13 +9,21 @@ body {
   height: 100vh;
 }
 
-.tooltip {
+.register-form, .tooltip {
   position: absolute;
+  pointer-events: none;
+  box-shadow: 0 .2rem .2rem rgba(0, 0, 0, .5);
+}
+
+.register-form {
+  z-index: 500;
+  background-color: #ccc
+}
+
+.tooltip {
   z-index: 450;
   color: #fff;
   background-color: #009;
-  box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.5);
-  pointer-events: none;
 }
 .tooltip p {
   position: relative;
