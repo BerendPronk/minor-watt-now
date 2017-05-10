@@ -27,21 +27,12 @@
   map.on('click', function(e) {
     console.log("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
 
-    
+
   });
 
   // d3.csv('public/data/generator-data.csv', clean, draw);
 
-  drawMap(clean(participants));
-
-  function clean(data) {
-    return {
-      ID: data['ID'],
-      type: data['Type'],
-      xPos: data['x-position'],
-      yPos: data['y-position']
-    }
-  }
+  drawMap(participants);
 
   function drawMap(err, data) {
     if (err) throw err;
