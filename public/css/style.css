@@ -11,7 +11,6 @@ body {
 
 .register-form, .tooltip {
   position: absolute;
-  pointer-events: none;
   box-shadow: 0 .2rem .2rem rgba(0, 0, 0, .5);
 }
 
@@ -23,6 +22,7 @@ body {
 .tooltip {
   z-index: 450;
   color: #fff;
+  pointer-events: none;
   background-color: #009;
 }
 .tooltip p {
