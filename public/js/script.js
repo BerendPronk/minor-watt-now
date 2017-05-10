@@ -24,18 +24,26 @@
 
   // D3
 
-  d3.csv('public/data/generator-data.csv', clean, draw);
+  map.on('click', function(e) {
+    console.log("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
 
-  function clean(d) {
+    
+  });
+
+  // d3.csv('public/data/generator-data.csv', clean, draw);
+
+  drawMap(clean(participants));
+
+  function clean(data) {
     return {
-      ID: d['ID'],
-      type: d['Type'],
-      xPos: d['x-position'],
-      yPos: d['y-position']
+      ID: data['ID'],
+      type: data['Type'],
+      xPos: data['x-position'],
+      yPos: data['y-position']
     }
   }
 
-  function draw(err, data) {
+  function drawMap(err, data) {
     if (err) throw err;
 
     const generatorIcon = L.icon({

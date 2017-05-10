@@ -7,6 +7,11 @@ const app = express();
 const server = httpServer(app);
 const wsServer = new WebSocket.Server({ server });
 
+const participants = require(__dirname + '/public/data/participants');
+const foodTrucks = participants.data;
+
+console.log(foodTrucks)
+
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
