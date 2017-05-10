@@ -10,13 +10,15 @@ const wsServer = new WebSocket.Server({ server });
 const participants = require(__dirname + '/public/data/participants');
 const foodTrucks = participants.data;
 
-console.log(foodTrucks)
-
-app.use('/public', express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/index.html');
-});
+app
+	.use('/public', express.static(path.join(__dirname, 'public')))
+	.set('view engine', 'ejs')
+	.set('views', path.join(__dirname, 'views'))
+	.get('/', (req, res) => {
+		res.render('index', {
+			foodTrucks: JSON.stringify(foodTrucks)
+		});
+	});
 
 wsServer.broadcast = data => {
   wsServer.clients.forEach(client => {

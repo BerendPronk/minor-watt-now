@@ -30,21 +30,22 @@
 
   });
 
-  // d3.csv('public/data/generator-data.csv', clean, draw);
-
-  drawMap(participants);
-
-  function drawMap(err, data) {
-    if (err) throw err;
-
+  function drawMap(data) {
+    const foodTrucks = JSON.parse(data);
     const generatorIcon = L.icon({
       iconUrl: 'public/leaflet/images/generator-marker.jpg',
       iconSize: [48, 48],
       iconAnchor: [24, 24]
     });
 
-    data.map(d => {
-      L.marker(xy(d.xPos,d.yPos), {d})
+    console.log(foodTrucks)
+
+    Object.keys(foodTrucks).forEach(function(key, index) {
+      const foodTruck = foodTrucks[key];
+      const xPos = foodTrucks[key].xPos;
+      const yPos = foodTrucks[key].yPos;
+
+      L.marker(xy(xPos,yPos), {foodTruck})
         .setIcon(generatorIcon)
         .addTo(map)
         .on('mouseover', showTooltip)
