@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 const httpServer = require('http').Server;
 const WebSocket = require('ws');
 
@@ -7,11 +8,33 @@ const app = express();
 const server = httpServer(app);
 const wsServer = new WebSocket.Server({ server });
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
+const participants = require(__dirname + '/public/data/participants');
+const foodTrucks = participants.data;
 
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/index.html');
-});
+app
+	.use('/public', express.static(path.join(__dirname, 'public')))
+  .use(bodyParser.urlencoded({ extended: false }))
+	.set('view engine', 'ejs')
+	.set('views', path.join(__dirname, 'views'))
+	.get('/', (req, res) => {
+		res.render('index', {
+			foodTrucks: JSON.stringify(foodTrucks)
+		});
+	})
+	.post('/new-coinbox', (req, res) => {
+		foodTrucks[req.body.id] = {
+			name: req.body.name,
+			product: req.body.product,
+			avgPrice:  req.body.avgPrice,
+			xPos: req.body.xPos,
+			yPos: req.body.xPos,
+			waiting: 0
+		}
+
+		res.render('index', {
+			foodTrucks: JSON.stringify(foodTrucks)
+		});
+	});
 
 wsServer.broadcast = data => {
   wsServer.clients.forEach(client => {

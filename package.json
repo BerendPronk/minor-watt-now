@@ -28,6 +28,7 @@
   "homepage": "https://github.com/BerendPronk/minor-watt-now#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "ejs": "^2.5.6",
     "express": "^4.15.2",
     "multer": "^1.3.0",
     "ws": "^2.3.1"
