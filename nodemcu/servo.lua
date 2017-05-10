@@ -1,5 +1,6 @@
 local servo = {}
 
+-- Initializes servo
 function servo.defineServo (pin, left, right)
   if not servoleft then
     servoleft = {}
@@ -16,6 +17,7 @@ function servo.defineServo (pin, left, right)
   gpio.mode(pin,gpio.OUTPUT)
 end
 
+-- Moves the servo to given angle, in 25 steps
 function servo.setServovalue (pin, svalue)
   local cnt = 25
   local tmrnum
@@ -38,6 +40,7 @@ function servo.setServovalue (pin, svalue)
   end)
 end
 
+-- Sets servo to specific angle
 function servo.setServo (pin, angle)
   local servovalue
   if servoleft[pin] and servoright[pin] then

@@ -2,9 +2,10 @@ local config = require 'config'
 local module = {}
 
 module.init = function ()
-  -- Create socket connection
+  -- Creates socket connection
   local ws = websocket.createClient()
 
+  -- On successful connection with socket
   ws:on('connection', function(ws)
     print('[WebSocket] Connected!')
 
@@ -19,11 +20,13 @@ module.init = function ()
     end
   end)
 
+  -- Error handling
   ws:on('close', function(_, status)
     print('[WebSocket] Connection closed.', status)
     ws = nil
   end)
 
+  -- Connects to websocket from the address given in config.lua
   print('[WebSocket] Connecting to ws at ws://' .. config.address .. ':' .. config.port .. '...')
   ws:connect('ws://' .. config.address .. ':' .. config.port)
 
