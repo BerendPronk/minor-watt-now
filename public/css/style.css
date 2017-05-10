@@ -10,7 +10,7 @@ body {
 
 .tooltip {
   position: absolute;
-  z-index: 400;
+  z-index: 450;
   color: #fff;
   background-color: #009;
   box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.5);
