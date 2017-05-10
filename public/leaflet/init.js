@@ -1,24 +1,20 @@
-var map = L.map('map', {
+const map = L.map('map', {
   crs: L.CRS.Simple,
   minZoom: .475,
   maxZoom: 3
 });
 
-map.on('click', function(e) {
-  console.log("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
-});
+const yx = L.latLng;
 
-var yx = L.latLng;
-
-var xy = function(x, y) {
+function xy(x, y) {
   if (L.Util.isArray(x)) {
     return yx(x[1], x[0]);
   }
   return yx(y, x);
 };
 
-var bounds = [[0,0], [600,900]];
-var image = L.imageOverlay('public/data/austrailia-blank.jpg', bounds).addTo(map);
+const bounds = [[0,0], [600,900]];
+const image = L.imageOverlay('public/data/austrailia-blank.jpg', bounds).addTo(map);
 
 map.fitBounds(bounds);
 
