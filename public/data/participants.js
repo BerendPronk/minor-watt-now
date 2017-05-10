@@ -1,5 +1,6 @@
 const participants = {
   36451934: {
+    id: 36451934,
     name: 'Pizza by Pasquale',
     product: 'Pizza',
     avgPrice: 3,
@@ -8,6 +9,7 @@ const participants = {
     queue: 0
   },
   12235476: {
+    id: 12235476,
     name: 'Chandler\'s Chips',
     product: 'Fries',
     avgPrice: 2,
@@ -16,6 +18,7 @@ const participants = {
     queue: 0
   },
   98636553: {
+    id: 98636553,
     name: 'Faith\'s Frozen Yoghurts',
     product: 'Ice Cream',
     avgPrice: 1,
@@ -24,6 +27,7 @@ const participants = {
     queue: 0
   },
   75643973: {
+    id: 75643973,
     name: 'Scarlett Soup',
     product: 'Soup',
     avgPrice: 1,
@@ -32,6 +36,7 @@ const participants = {
     queue: 0
   },
   19857742: {
+    id: 19857742,
     name: 'Bane\'s Burgers',
     product: 'Burgers',
     avgPrice: 2,
@@ -40,6 +45,7 @@ const participants = {
     queue: 0
   },
   87063214: {
+    id: 87063214,
     name: 'Dale\'s Dogs',
     product: 'Hot Dogs',
     avgPrice: 2,
@@ -48,6 +54,7 @@ const participants = {
     queue: 0
   },
   55794326: {
+    id: 55794326,
     name: 'Cassidy\'s Clouds',
     product: 'Cotton Candy',
     avgPrice: 1,
