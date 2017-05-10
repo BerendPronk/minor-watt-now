@@ -56,13 +56,5 @@ const participants = {
     yPos: 42.44854061031919
   }
 }
-// '14286396': {
-//   name: '',
-//   product: '',
-//   avgPrice: '',
-//   avgWait: '',
-//   xPos: '',
-//   yPos: ''
-// }
 
 exports.data = participants;
