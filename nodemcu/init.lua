@@ -120,5 +120,5 @@ function init()
   gpio.trig(button, 'both', btnChange)
 end
 
--- Initilizes Wi-Fi connection
+-- Initializes Wi-Fi connection
 wifimodule.connect(config, init)
