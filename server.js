@@ -14,6 +14,9 @@ const wsServer = new WebSocket.Server({ server });
 const participants = require(__dirname + '/public/data/participants');
 const foodTrucks = participants.data;
 
+// Lock to keep track of one single discount at the time
+let discountLock = false;
+
 // Declares which server functionalities the app must use
 app
 	.use('/public', express.static(path.join(__dirname, 'public')))
@@ -122,7 +125,8 @@ function processMessage(socket, message) {
 					id: message.id,
 					type: 'new customer',
 					queue: message.queue,
-					queueLength: queueLength
+					queueLength: queueLength,
+					discountLock: discountLock
 				})
 			);
 		break;
@@ -142,6 +146,14 @@ function processMessage(socket, message) {
 		// If a foodtruck becomes too crowded
 		case 'discount':
 			console.log(`${message.crowdedFoodTruck} is too crowded! So ${message.discountFoodTruck} has a discount!`);
+
+			// Applies lock on discount to prevent multiple notifications
+			discountLock = true
+
+			// Disables lock after 15 minutes
+			setTimeout(() => {
+				discountLock = false;
+			}, 10000)
 		break;
 		default:
 			return false;

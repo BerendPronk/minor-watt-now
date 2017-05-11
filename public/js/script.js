@@ -48,30 +48,36 @@
             let discountTruckProduct;
             let discountTruckPrice;
 
-            // Binds appropriate data to discount foodtruck by looping through participants object
-            Object.keys(foodTrucks).forEach(function(key, index) {
-              if (foodTrucks[key].name === discountTruck) {
-                discountTruckProduct = foodTrucks[key].product;
-                discountTruckPrice = foodTrucks[key].avgPrice;
-              }
-            });
+            if (data.discountLock !== true) {
+              // Binds appropriate data to discount foodtruck by looping through participants object
+              Object.keys(foodTrucks).forEach(function(key, index) {
+                if (foodTrucks[key].name === discountTruck) {
+                  discountTruckProduct = foodTrucks[key].product;
+                  discountTruckPrice = foodTrucks[key].avgPrice;
+                }
+              });
 
-            // [dest: Server] Tells the server that foodtruck has become crowded
-            ws.send(
-              JSON.stringify({
-                type: 'discount',
-                crowdedFoodTruck: foodTrucks[data.id].name,
-                discountFoodTruck: discountTruck
-              })
-            );
+              // [dest: Server] Tells the server that foodtruck has become crowded
+              ws.send(
+                JSON.stringify({
+                  type: 'discount',
+                  crowdedFoodTruck: foodTrucks[data.id].name,
+                  discountFoodTruck: discountTruck
+                })
+              );
 
-            // Creates a notification to announce discount
-            createNotification(
-              'queue-long',
-              'positive',
-              `<p>${foodTrucks[data.id].name} is too crowded!. Now 2 ${ discountTruckProduct } for ${ discountTruckPrice } coins at ${ getDiscountLocation(foodTrucks) }!</p>`,
-              true
-            );
+              // Creates a notification to announce discount
+              createNotification(
+                'discount',
+                'positive',
+                `<p>${foodTrucks[data.id].name} is too crowded! Now 2 ${ discountTruckProduct } for ${ discountTruckPrice } coins at ${ getDiscountLocation(foodTrucks) }!</p>`,
+              );
+
+              // Removes notification after 15 minutes
+              setTimeout(() => {
+                hideNotification(document.querySelector('.notification[data-type="discount"]'), 0);
+              }, 900000)
+            }
           break;
         }
       break;
@@ -111,7 +117,6 @@
     // Returns a random foodtruck with the lowest queuelength
     return shortestQueueTrucks[Math.floor(Math.random() * shortestQueueTrucks.length)];
   }
-
 
   //
 
@@ -278,7 +283,6 @@
   function hideNotification(notification, timer) {
     setTimeout(() => {
       notification.classList.remove('active');
-      notification.classList.add('hidden');
       setTimeout(() => {
         notification.remove()
       }, 500);
