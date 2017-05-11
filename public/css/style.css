@@ -23,6 +23,10 @@ body {
   transform: translateX(calc(100% + 4rem));
 }
 
+.notification.neutral {
+  background-color: #fff;
+}
+
 .notification.positive {
   background-color: green;
 }
