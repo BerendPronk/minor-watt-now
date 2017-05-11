@@ -18,20 +18,13 @@
         if (foodTrucks[data.id] === undefined) {
           console.log(`New coinbox registered with ID: ${data.id}`);
 
-          // Creates notification
-          document.body.insertAdjacentHTML(
-            'afterbegin',
-            `<div class="notification" data-type="registration">
-              <p>New coinbox registered!</p>
-              <button onclick="setCoinbox(${data.id})">Assign Location</button>
-            </div>`
+          // Creates a notification
+          createNotification(
+            'registration',
+            'neutral',
+            `<p>New coinbox registered!</p>
+            <button onclick="setCoinbox(${data.id})">Assign Location</button>`
           );
-
-          // Defines notification and adds active class after 50ms
-          notification = document.querySelector('.notification[data-type="registration"]');
-          setTimeout(() => {
-            notification.classList.add('active');
-          }, 50);
         }
       break;
       // If a coinbox received the amount of coins equal to the average price of foodtruck
@@ -42,45 +35,43 @@
         // Check whether queue is long or short
         switch (data.queueLength) {
           case 'short':
-          // Creates notification
-            document.body.insertAdjacentHTML(
-              'afterbegin',
-              `<div class="notification positive" data-type="queue-short">
-                <p>The queue for ${foodTrucks[data.id].name} is short, get your snacks!</p>
-              </div>`
+            // Creates a notification
+            createNotification(
+              'queue-short',
+              'positive',
+              `<p>The queue for ${foodTrucks[data.id].name} is short, get your snacks!</p>`,
+              true
             );
-
-            // Defines notification and shows it
-            notification = document.querySelector('.notification[data-type="queue-short"]');
-
-            // Shows, hides and removes notification
-            setTimeout(() => {
-              notification.classList.add('active');
-            }, 50);
-            hideNotification(notification, 5000);
           break;
           case 'long':
-            // Creates notification
-            document.body.insertAdjacentHTML(
-              'afterbegin',
-              `<div class="notification negative" data-type="queue-long">
-                <p>The queue for ${foodTrucks[data.id].name} is ${data.queueLength}.</p>
-              </div>`
+            const discountTruck = getDiscountLocation(foodTrucks);
+            let discountTruckProduct;
+            let discountTruckPrice;
+
+            // Binds appropriate data to discount foodtruck by looping through participants object
+            Object.keys(foodTrucks).forEach(function(key, index) {
+              if (foodTrucks[key].name === discountTruck) {
+                discountTruckProduct = foodTrucks[key].product;
+                discountTruckPrice = foodTrucks[key].avgPrice;
+              }
+            });
+
+            // [dest: Server] Tells the server that foodtruck has become crowded
+            ws.send(
+              JSON.stringify({
+                type: 'discount',
+                crowdedFoodTruck: foodTrucks[data.id].name,
+                discountFoodTruck: discountTruck
+              })
             );
 
-            // Defines notification and shows it
-            notification = document.querySelector('.notification[data-type="queue-long"]');
-
-            // Shows, hides and removes notification
-            setTimeout(() => {
-              notification.classList.add('active');
-            }, 50);
-            hideNotification(notification, 5000);
-
-            // Analyses which foodtruck deserves more customers based on queue length
-            function getDiscountLocation() {
-              console.log(foodTrucks)
-            }
+            // Creates a notification to announce discount
+            createNotification(
+              'queue-long',
+              'positive',
+              `<p>${foodTrucks[data.id].name} is too crowded!. Now 2 ${ discountTruckProduct } for ${ discountTruckPrice } coins at ${ getDiscountLocation(foodTrucks) }!</p>`,
+              true
+            );
           break;
         }
       break;
@@ -92,6 +83,35 @@
         return false;
     }
   }
+
+  // Analyses which foodtruck deserves more customers based on queue length
+  function getDiscountLocation(array) {
+    let foodTruckNames = [];
+    let foodTruckQueues = [];
+    let shortestQueueTrucks = [];
+
+    // Pushes queuelength of every foodtruck in arrays
+    Object.keys(array).forEach(function(key, index) {
+      foodTruckNames.push(array[key].name);
+      foodTruckQueues.push(array[key].queue);
+    });
+
+    // Gets shortest queuelength
+    let getShortestValue = foodTruckQueues.reduce((a, b) => {
+      return Math.min(a, b);
+    });
+
+    // Gets foodtrucks with shortest queue value
+    foodTruckQueues.map((length, index) => {
+      if (length === getShortestValue) {
+        shortestQueueTrucks.push(foodTruckNames[index]);
+      }
+    });
+
+    // Returns a random foodtruck with the lowest queuelength
+    return shortestQueueTrucks[Math.floor(Math.random() * shortestQueueTrucks.length)];
+  }
+
 
   //
 
@@ -228,6 +248,30 @@
   // Hides modal
   function hideDetails() {
     // modal hiding
+  }
+
+  // Creates a notification
+  function createNotification(type, state, msg, remove) {
+    let notification;
+
+    // Creates DOM-structure
+    document.body.insertAdjacentHTML(
+      'afterbegin',
+      `<div class="notification ${ state }" data-type="${ type }">
+        ${ msg }
+      </div>`
+    );
+
+    // Defines notification and adds active class after 50ms
+    notification = document.querySelector(`.notification[data-type="${ type }"]`);
+    setTimeout(() => {
+      notification.classList.add('active');
+    }, 50);
+
+    // Removes notification
+    if (remove) {
+      hideNotification(notification, 5000);
+    }
   }
 
   // Hides and removes notification after n seconds
