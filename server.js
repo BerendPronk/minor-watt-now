@@ -104,12 +104,25 @@ function processMessage(socket, message) {
 			console.log(`${message.id} just received a customer!, ${message.queue}`);
 			foodTrucks[message.id].queue = message.queue;
 
+			const queue = foodTrucks[message.id].queue;
+			let queueLength;
+
+			// Guesses wait time based on queue length
+			if (queue >= 10) {
+				queueLength = 'long';
+			} else if (queue >= 5 && queue < 10) {
+				queueLength = 'medium';
+			} else {
+				queueLength = 'short';
+			}
+
 			// [dest: Client] Adds a crowd-value to specific coinbox
 			wsServer.broadcast(
 				JSON.stringify({
 					id: message.id,
 					type: 'new customer',
-					queue: message.queue
+					queue: message.queue,
+					queueLength: queueLength
 				})
 			);
 		break;
