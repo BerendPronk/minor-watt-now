@@ -18,7 +18,7 @@
         if (foodTrucks[data.id] === undefined) {
           console.log(`New coinbox registered with ID: ${data.id}`);
 
-          // Shows notification
+          // Creates notification
           document.body.insertAdjacentHTML(
             'afterbegin',
             `<div class="notification" data-type="registration">
@@ -27,10 +27,8 @@
             </div>`
           );
 
-          // Defines notification
+          // Defines notification and adds active class after 50ms
           notification = document.querySelector('.notification[data-type="registration"]');
-
-          // Add active class after 50ms
           setTimeout(() => {
             notification.classList.add('active');
           }, 50);
@@ -38,13 +36,13 @@
       break;
       // If a coinbox received the amount of coins equal to the average price of foodtruck
       case 'new customer':
-
         console.log(`${data.id} had a new customer, total in line: ${data.queue}`);
         foodTrucks[data.id].queue = data.queue;
 
         // Check whether queue is long or short
         switch (data.queueLength) {
           case 'short':
+          // Creates notification
             document.body.insertAdjacentHTML(
               'afterbegin',
               `<div class="notification positive" data-type="queue-short">
@@ -52,10 +50,17 @@
               </div>`
             );
 
-            // Defines notification
+            // Defines notification and shows it
             notification = document.querySelector('.notification[data-type="queue-short"]');
+
+            // Shows, hides and removes notification
+            setTimeout(() => {
+              notification.classList.add('active');
+            }, 50);
+            hideNotification(notification, 5000);
           break;
           case 'long':
+            // Creates notification
             document.body.insertAdjacentHTML(
               'afterbegin',
               `<div class="notification negative" data-type="queue-long">
@@ -63,18 +68,21 @@
               </div>`
             );
 
-            // Defines notification
+            // Defines notification and shows it
             notification = document.querySelector('.notification[data-type="queue-long"]');
+
+            // Shows, hides and removes notification
+            setTimeout(() => {
+              notification.classList.add('active');
+            }, 50);
+            hideNotification(notification, 5000);
+
+            // Analyses which foodtruck deserves more customers based on queue length
+            function getDiscountLocation() {
+              console.log(foodTrucks)
+            }
           break;
         }
-
-        // Add active class after 50ms
-        setTimeout(() => {
-          notification.classList.add('active');
-        }, 50);
-
-        // Hides and removes notification
-        hideNotification(notification, 5000);
       break;
       // If the money tray of the coinbox is disposed by a button press (when there is no one in line)
       case 'empty coinbox':
