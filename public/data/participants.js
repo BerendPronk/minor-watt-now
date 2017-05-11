@@ -2,7 +2,7 @@ const participants = {
   36451934: {
     id: 36451934,
     name: 'Pizza by Pasquale',
-    product: 'Pizza',
+    product: 'Pizzas',
     avgPrice: 3,
     xPos: 187.06136540140662,
     yPos: 354.69712747266715,
@@ -11,7 +11,7 @@ const participants = {
   12235476: {
     id: 12235476,
     name: 'Chandler\'s Chips',
-    product: 'Fries',
+    product: 'Portions of fries',
     avgPrice: 2,
     xPos: 445.3499430133488,
     yPos: 539.6000925040576,
@@ -20,7 +20,7 @@ const participants = {
   98636553: {
     id: 98636553,
     name: 'Faith\'s Frozen Yoghurts',
-    product: 'Ice Cream',
+    product: 'Ice Cream baskets',
     avgPrice: 1,
     xPos: 517.2966220138898,
     yPos: 288.5061827921694,
@@ -29,7 +29,7 @@ const participants = {
   75643973: {
     id: 75643973,
     name: 'Scarlett Soup',
-    product: 'Soup',
+    product: 'Bowls of soup',
     avgPrice: 1,
     xPos: 628.8139744647284,
     yPos: 466.9339467135111,
@@ -56,7 +56,7 @@ const participants = {
   55794326: {
     id: 55794326,
     name: 'Cassidy\'s Clouds',
-    product: 'Cotton Candy',
+    product: 'Cotton Candies',
     avgPrice: 1,
     xPos: 625.2166405147013,
     yPos: 42.44854061031919,
