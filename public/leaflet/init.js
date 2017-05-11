@@ -13,9 +13,9 @@ function xy(x, y) {
   return yx(y, x);
 };
 
-const bounds = [[0,0], [600,900]];
-const image = L.imageOverlay('public/data/austrailia-blank.jpg', bounds).addTo(map);
+const bounds = [[0,0], [648,1125]];
+const image = L.imageOverlay('public/data/festival-poster_large.jpg', bounds).addTo(map);
 
 map.fitBounds(bounds);
 
-map.setView(new L.LatLng(300.5, 428.5), .25);
+// map.setView(new L.LatLng(300.5, 428.5), .25);

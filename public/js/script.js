@@ -139,9 +139,9 @@
 
   // Initializes map icon that'll overwrite the default
   const foodTruckIcon = L.icon({
-    iconUrl: 'public/leaflet/images/generator-marker.jpg',
-    iconSize: [48, 48],
-    iconAnchor: [24, 24]
+    iconUrl: 'public/leaflet/images/foodtruck-icon.png',
+    iconSize: [57, 50],
+    iconAnchor: [28.5, 25]
   });
 
   // Initializes coinbox assignment lock
