@@ -39,8 +39,8 @@ app
 			name: req.body.name,
 			product: req.body.product,
 			avgPrice:  req.body.avgPrice,
-			xPos: req.body.xPos,
-			yPos: req.body.xPos,
+			xPos: Number(req.body.xPos),
+			yPos: Number(req.body.yPos),
 			queue: 0
 		}
 
