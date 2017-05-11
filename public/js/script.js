@@ -9,6 +9,7 @@
   // Checks type of message to run different functions
   function socketMessage(event) {
     const data = JSON.parse(event.data);
+    let notification;
 
     switch (data.type) {
       // If a coinbox is activated and successfully connected to same websocket
@@ -20,17 +21,60 @@
           // Shows notification
           document.body.insertAdjacentHTML(
             'afterbegin',
-            `<div id="coinbox-notification">
-            <p>New coinbox registered!</p>
-            <button onclick="setCoinbox(${data.id})">Assign Location</button>
+            `<div class="notification" data-type="registration">
+              <p>New coinbox registered!</p>
+              <button onclick="setCoinbox(${data.id})">Assign Location</button>
             </div>`
           );
+
+          // Defines notification
+          notification = document.querySelector('.notification[data-type="registration"]');
+
+          // Add active class after 50ms
+          setTimeout(() => {
+            notification.classList.add('active');
+          }, 50);
         }
       break;
       // If a coinbox received the amount of coins equal to the average price of foodtruck
       case 'new customer':
+
         console.log(`${data.id} had a new customer, total in line: ${data.queue}`);
         foodTrucks[data.id].queue = data.queue;
+
+        // Check whether queue is long or short
+        switch (data.queueLength) {
+          case 'short':
+            document.body.insertAdjacentHTML(
+              'afterbegin',
+              `<div class="notification positive" data-type="queue-short">
+                <p>The queue for ${foodTrucks[data.id].name} is short, get your snacks!</p>
+              </div>`
+            );
+
+            // Defines notification
+            notification = document.querySelector('.notification[data-type="queue-short"]');
+          break;
+          case 'long':
+            document.body.insertAdjacentHTML(
+              'afterbegin',
+              `<div class="notification negative" data-type="queue-long">
+                <p>The queue for ${foodTrucks[data.id].name} is ${data.queueLength}.</p>
+              </div>`
+            );
+
+            // Defines notification
+            notification = document.querySelector('.notification[data-type="queue-long"]');
+          break;
+        }
+
+        // Add active class after 50ms
+        setTimeout(() => {
+          notification.classList.add('active');
+        }, 50);
+
+        // Hides and removes notification
+        hideNotification(notification, 5000);
       break;
       // If the money tray of the coinbox is disposed by a button press (when there is no one in line)
       case 'empty coinbox':
@@ -75,8 +119,8 @@
 
   // Disables coinbox assignment lock and binds ID of new coinbox to setLocation
   function setCoinbox(id) {
-    const coinboxNotification = document.querySelector('#coinbox-notification');
-    coinboxNotification.remove();
+    const notification = document.querySelector('.notification[data-type="registration"]');
+    hideNotification(notification, 0);
 
     setLocation.state = true;
     setLocation.box = id;
@@ -117,7 +161,7 @@
       .addTo(map)
       .on('mouseover', showTooltip)
       .on('mouseout', hideTooltip)
-      .on('click', showDetails)
+      .on('click', showDetails);
   }
 
   // Shows the registry form and assigns DOM-structure to element
@@ -171,5 +215,21 @@
   // Shows a modal with contextual data
   function showDetails() {
     console.log(foodTrucks[this.options.foodTruck.id]);
+  }
+
+  // Hides modal
+  function hideDetails() {
+    // modal hiding
+  }
+
+  // Hides and removes notification after n seconds
+  function hideNotification(notification, timer) {
+    setTimeout(() => {
+      notification.classList.remove('active');
+      notification.classList.add('hidden');
+      setTimeout(() => {
+        notification.remove()
+      }, 500);
+    }, timer);
   }
 // })()
