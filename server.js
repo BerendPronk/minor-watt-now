@@ -139,6 +139,10 @@ function processMessage(socket, message) {
 				})
 			);
 		break;
+		// If a foodtruck becomes too crowded
+		case 'discount':
+			console.log(`${message.crowdedFoodTruck} is too crowded! So ${message.discountFoodTruck} has a discount!`);
+		break;
 		default:
 			return false;
 	}
