@@ -31,7 +31,7 @@ function init()
 
     -- Sets custom average price and watches coin input afterwards
     if data.type == 'assigned coinbox' then
-      productPrice = data.avgPrice
+      productPrice = tonumber(data.avgPrice)
 
       -- Runs watch function
       watch()
