@@ -9,15 +9,12 @@
   // Checks type of message to run different functions
   function socketMessage(event) {
     const data = JSON.parse(event.data);
-    let notification;
 
     switch (data.type) {
       // If a coinbox is activated and successfully connected to same websocket
       case 'new coinbox':
         // Checks if foodtruck already exists on server
         if (foodTrucks[data.id] === undefined) {
-          console.log(`New coinbox registered with ID: ${data.id}`);
-
           // Creates a notification
           createNotification(
             'registration',
@@ -29,7 +26,6 @@
       break;
       // If a coinbox received the amount of coins equal to the average price of foodtruck
       case 'new customer':
-        console.log(`${data.id} had a new customer, total in line: ${data.queue}`);
         foodTrucks[data.id].queue = data.queue;
 
         // Check whether queue is long or short
@@ -70,13 +66,13 @@
               createNotification(
                 'discount',
                 'positive',
-                `<p>${foodTrucks[data.id].name} is too crowded! Now 2 ${ discountTruckProduct } for ${ discountTruckPrice } coins at ${ getDiscountLocation(foodTrucks) }!</p>`,
+                `<p>${foodTrucks[data.id].name} is too crowded! Now 2 ${ discountTruckProduct } for ${ discountTruckPrice } coins at ${ getDiscountLocation(foodTrucks) }!</p>`
               );
 
               // Removes notification after 15 minutes
               setTimeout(() => {
                 hideNotification(document.querySelector('.notification[data-type="discount"]'), 0);
-              }, 900000)
+              }, 900000);
             }
           break;
         }
@@ -118,17 +114,18 @@
     return shortestQueueTrucks[Math.floor(Math.random() * shortestQueueTrucks.length)];
   }
 
+
   //
 
   // Creates initial DOM-structure for tooltip
-  const tooltipInit = document.body.insertAdjacentHTML(
+  document.body.insertAdjacentHTML(
     'afterbegin',
     `<div class="tooltip" style="opacity: 0;"></div>`
   );
   const tooltip = document.querySelector('.tooltip');
 
   // Creates initial DOM-structure for registry form
-  const registerFormInit = document.body.insertAdjacentHTML(
+  document.body.insertAdjacentHTML(
     'afterbegin',
     `<div class="register-form" style="opacity: 0;"></div>`
   );
@@ -152,8 +149,12 @@
 
   // Disables coinbox assignment lock and binds ID of new coinbox to setLocation
   function setCoinbox(id) {
+    // Removes notification
     const notification = document.querySelector('.notification[data-type="registration"]');
     hideNotification(notification, 0);
+
+    // Add pointer-cursor
+    document.body.classList.add('assign-coinbox');
 
     setLocation.state = true;
     setLocation.box = id;
@@ -163,6 +164,9 @@
   map.on('click', function(e) {
     // Checks whether coinbox assignment lock is active
     if (setLocation.state === true) {
+      // Removes pointer-cursor
+      document.body.classList.remove('assign-coinbox');
+
       addMarker(e.latlng.lng, e.latlng.lat, {
         name: 'Not added yet',
         product: 'Not added yet'
@@ -184,7 +188,7 @@
       const yPos = foodTrucks[key].yPos;
 
       addMarker(xPos, yPos, foodTruck);
-    })
+    });
   }
 
   // Binds a marker to the festival map with Leaflet
@@ -284,7 +288,7 @@
     setTimeout(() => {
       notification.classList.remove('active');
       setTimeout(() => {
-        notification.remove()
+        notification.remove();
       }, 500);
     }, timer);
   }
