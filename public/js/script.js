@@ -40,7 +40,7 @@
               'queue-short',
               'positive',
               `<p>The queue for ${foodTrucks[data.id].name} is short, get your snacks!</p>`,
-              true
+              5000
             );
           break;
           case 'long':
@@ -256,7 +256,7 @@
   }
 
   // Creates a notification
-  function createNotification(type, state, msg, remove) {
+  function createNotification(type, state, msg, timer) {
     let notification;
 
     // Creates DOM-structure
@@ -274,8 +274,8 @@
     }, 50);
 
     // Removes notification
-    if (remove) {
-      hideNotification(notification, 5000);
+    if (timer) {
+      hideNotification(notification, timer);
     }
   }
 
