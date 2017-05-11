@@ -6,7 +6,7 @@ const participants = {
     avgPrice: 3,
     xPos: 187.06136540140662,
     yPos: 354.69712747266715,
-    queue: 0
+    queue: 3
   },
   12235476: {
     id: 12235476,
@@ -15,7 +15,7 @@ const participants = {
     avgPrice: 2,
     xPos: 445.3499430133488,
     yPos: 539.6000925040576,
-    queue: 0
+    queue: 2
   },
   98636553: {
     id: 98636553,
@@ -24,7 +24,7 @@ const participants = {
     avgPrice: 1,
     xPos: 517.2966220138898,
     yPos: 288.5061827921694,
-    queue: 0
+    queue: 3
   },
   75643973: {
     id: 75643973,
@@ -33,7 +33,7 @@ const participants = {
     avgPrice: 1,
     xPos: 628.8139744647284,
     yPos: 466.9339467135111,
-    queue: 0
+    queue: 1
   },
   19857742: {
     id: 19857742,
@@ -51,7 +51,7 @@ const participants = {
     avgPrice: 2,
     xPos: 582.7680999043821,
     yPos: 137.4181568910333,
-    queue: 0
+    queue: 4
   },
   55794326: {
     id: 55794326,
@@ -60,7 +60,7 @@ const participants = {
     avgPrice: 1,
     xPos: 625.2166405147013,
     yPos: 42.44854061031919,
-    queue: 0
+    queue: 3
   }
 }
 

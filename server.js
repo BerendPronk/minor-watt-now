@@ -68,7 +68,7 @@ wsServer.broadcast = data => {
   });
 };
 
-// Initilizes socket events if connection is successful
+// Initializes socket events if connection is successful
 wsServer.on('connection', (socket) => {
 	// Binds event to socket to listen for messages
 	socket.on('message', (message) => {
