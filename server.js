@@ -20,12 +20,12 @@ let discountLock = false;
 // Declares which server functionalities the app must use
 app
 	.use('/public', express.static(path.join(__dirname, 'public')))
-  .use(bodyParser.urlencoded({ extended: false }))
+  .use(bodyParser.urlencoded({ extended: false }));
 
 // Sets EJS view engine
 app
 	.set('view engine', 'ejs')
-	.set('views', path.join(__dirname, 'views'))
+	.set('views', path.join(__dirname, 'views'));
 
 // Declares app routing
 app
@@ -148,12 +148,12 @@ function processMessage(socket, message) {
 			console.log(`${message.crowdedFoodTruck} is too crowded! So ${message.discountFoodTruck} has a discount!`);
 
 			// Applies lock on discount to prevent multiple notifications
-			discountLock = true
+			discountLock = true;
 
 			// Disables lock after 15 minutes
 			setTimeout(() => {
 				discountLock = false;
-			}, 10000)
+			}, 10000);
 		break;
 		default:
 			return false;
