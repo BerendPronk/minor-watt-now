@@ -1,7 +1,46 @@
 body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   margin: 0;
   color: #222;
-  background-color: lightblue;
+  font-family: 'Roboto', sans-serif;
+  background-color: #c5fcf6;
+}
+
+body.assign-coinbox::before {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 500;
+  padding: 1rem;
+  font-size: 1.2em;
+  color: #fff;
+  content: "Click anywhere on the map to assign coinbox location.";
+  background-color: #060c36;
+  box-shadow: 0 .2rem .2rem rgba(0, 0, 0, .5);
+}
+
+h1, h2, h3 {
+  font-family: 'Dosis', sans-serif;
+}
+
+button, input[type="submit"] {
+  padding: .75rem 1rem;
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: .25rem;
+  background-color: #060c36;
+  transition: .1s ease;
+}
+
+button:hover, input[type="submit"]:hover {
+  background-color: #00abeb;
 }
 
 .notification {
@@ -10,7 +49,11 @@ body {
   right: 0;
   z-index: 500;
   margin: 2rem;
-  background-color: #fff;
+  padding: 1em;
+  color: #fff;
+  border-radius: .25rem;
+  background-color: #222;
+  box-shadow: 0 .2rem .2rem rgba(0, 0, 0, .5);
   transform: translateX(calc(100% + 4rem));
   transition: .1s ease-in-out;
 }
@@ -24,15 +67,20 @@ body {
 }
 
 .notification.neutral {
+  color: #060c36;
   background-color: #fff;
 }
 
 .notification.positive {
-  background-color: green;
+  font-weight: bold;
+  color: #fff;
+  background-color: #27C86A;
 }
 
 .notification.negative {
-  background-color: red;
+  font-weight: bold;
+  color: #fff;
+  background-color: #F12D4B;
 }
 
 .notification:nth-of-type(2) { transform: translateY(calc((100% * 1) + (1rem * 1))); }
@@ -45,9 +93,14 @@ body {
 .notification:nth-of-type(9) { transform: translateY(calc((100% * 8) + (1rem * 8))); }
 .notification:nth-of-type(10) { transform: translateY(calc((100% * 9) + (1rem * 9))); }
 
+.notification p {
+  margin: 0;
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.4rem;
+}
+
 .notification button {
-  background-color: blue;
-  color: #fff;
+  margin-top: 1rem;
 }
 
 #map {
@@ -62,18 +115,86 @@ body {
 
 .register-form {
   z-index: 500;
-  background-color: #ccc
+  padding: 1rem;
+  border-radius: .25rem;
+  background-color: #fff;
+}
+
+.register-form form * {
+  display: block;
+  font-size: 1em;
+}
+
+.register-form label {
+  margin-bottom: 1.2rem;
+}
+
+.register-form label input {
+  margin-top: .4rem;
+  padding: .5em;
+  border-radius: .25rem;
+  border: 2px solid #e9eaec;
+}
+
+.register-form label input:focus {
+  outline-color: #00abeb;
 }
 
 .tooltip {
   z-index: 450;
   color: #fff;
   pointer-events: none;
-  background-color: #009;
+  border-radius: .25rem;
+  background-color: #060c36;
 }
 .tooltip p {
   position: relative;
   padding: .5rem 1rem;
-  font-family: 'Noto Sans', sans-serif;
-  font-weight: bold;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 500;
+  width: 24em;
+  padding: 1rem;
+  text-align: center;
+  border-radius: .25rem;
+  background-color: #fff;
+  box-shadow: 0 .2rem .2rem rgba(0, 0, 0, .5);
+  transform: translate(-50%, -50%);
+}
+
+.modal .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  font-size: 1.4em;
+  cursor: pointer;
+}
+
+.modal h2 {
+  margin-bottom: 0;
+  font-size: 1.6em;
+  color: #00abeb;
+}
+
+.modal .queue {
+  position: relative;
+  top: -.6rem;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  color: #00abeb;
+}
+
+.modal .queue span {
+  display: block;
+  width: 100%;
+  font-size: 4em;
+}
+
+.modal .queue p {
+  margin: 0;
 }

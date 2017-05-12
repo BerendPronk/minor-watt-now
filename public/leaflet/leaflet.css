@@ -112,6 +112,7 @@
 	}
 .leaflet-top,
 .leaflet-bottom {
+	display: none;
 	position: absolute;
 	z-index: 1000;
 	pointer-events: none;
@@ -235,7 +236,7 @@
 /* visual tweaks */
 
 .leaflet-container {
-	background: #ddd;
+	background: #c5fcf6;
 	outline: 0;
 	}
 .leaflet-container a {
