@@ -241,7 +241,7 @@ function showTooltip() {
   tooltip.style.top = (event.clientY - 28) + 'px';
 
   tooltip.innerHTML =
-    `<p><strong>${item.name}</strong>, ${item.queue} people waiting</p>`;
+    `<p><strong>${item.name}</strong>, ${item.queue} ${ checkPlural(item.queue, 'person') } waiting</p>`;
 }
 
 // Hides tooltip
@@ -251,12 +251,25 @@ function hideTooltip() {
 
 // Shows a modal with contextual data
 function showDetails() {
-  console.log(foodTrucks[this.options.foodTruck.id]);
+  const item = this.options.foodTruck;
+
+  document.body.insertAdjacentHTML(
+    'afterbegin',
+    `<section id="modal" class="modal">
+      <h2>${item.name}</h2>
+      <p>Sells ${item.product} for ${item.avgPrice} ${ checkPlural(item.avgPrice, 'coin') }.</p>
+      <section class="queue">
+        <span>${item.queue}</span>
+        <p>${ checkPlural(item.queue, 'person') } waiting</p>
+      </section>
+      <span class="close" onclick="hideDetails()">✕</span>
+    </section>`
+  );
 }
 
 // Hides modal
 function hideDetails() {
-  // modal hiding
+  document.querySelector('#modal').remove();
 }
 
 // Creates a notification
@@ -291,4 +304,20 @@ function hideNotification(notification, timer) {
       notification.remove();
     }, 500);
   }, timer);
+}
+
+// Returns either singular or plural of a word
+function checkPlural(amount, word) {
+  if (amount === 1) {
+    return word;
+  } else {
+    switch (word) {
+      case 'person':
+        return 'people';
+      break;
+      case 'coin':
+        return 'coins';
+      break;
+    }
+  }
 }
